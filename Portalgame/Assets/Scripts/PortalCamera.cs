@@ -10,12 +10,12 @@ public class PortalCamera : MonoBehaviour
     void Update()
     {
         //Vector3 playerOffsetFromPortal = playerCamera.position - otherPortal.position;
-        //transform.position = portal.position + playerOffsetFromPortal;
-    
-        float angularDifferenceBetweenPortals = Quaternion.Angle(portal.rotation, otherPortal.rotation);
+        //Vector3 portalPositionOffset = otherPortal.rotation * playerOffsetFromPortal; // Transform into otherPortal's space
+        //transform.position = portal.position + portalPositionOffset; // Apply to this portal
 
-        Quaternion portalRotationDiff = Quaternion.AngleAxis(angularDifferenceBetweenPortals, Vector3.up);
+        // Align the camera’s rotation to look through the portal
+        Quaternion portalRotationDiff = portal.rotation * Quaternion.Inverse(otherPortal.rotation);
         Vector3 newCameraDirection = portalRotationDiff * playerCamera.forward;
-        transform.rotation = Quaternion.LookRotation(newCameraDirection, Vector3.up); 
+        transform.rotation = Quaternion.LookRotation(newCameraDirection, portal.up);
     }
 }

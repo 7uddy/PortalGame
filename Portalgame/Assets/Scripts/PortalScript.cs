@@ -1,16 +1,14 @@
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class PortalScript : MonoBehaviour
 {
-    [SerializeField] Transform targetPortal;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] public Transform targetPortal;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.transform.position = targetPortal.position;
-            collision.transform.rotation = targetPortal.rotation;
+            collision.transform.SetPositionAndRotation(targetPortal.position, targetPortal.rotation);
         }
     }
 }
