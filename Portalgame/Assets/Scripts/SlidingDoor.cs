@@ -6,17 +6,31 @@ using Vector3 = UnityEngine.Vector3;
 
 public class SlidingDoor : MonoBehaviour
 {
-
-    public bool IsOpen = false;
-
+    private bool isOpen = false;
+    public bool IsOpen
+    {
+        get { return isOpen; }
+    }
+    private bool isPlayerNearby = false;
+    public bool IsPlayerNearby
+    {
+        get { return isPlayerNearby; }
+        set { isPlayerNearby = value; }
+    }
+    private bool isOpening = false;
+    public bool IsOpening
+    {
+        get { return isOpening; }
+    }
+    private bool isClosing = false;
+    public bool IsClosing
+    {
+        get { return isClosing; }
+    }
     [SerializeField] private float Speed = 1.0f;
     [SerializeField] private Vector3 SlideDirection = Vector3.up;
     [SerializeField] private float SlideAmount = 1.9f;
-
     private Vector3 StartPosition;
-    public bool IsPlayerNearby = false;
-    public bool IsOpening = false;
-    public bool IsClosing = false;
 
     void Start()
     {
@@ -24,12 +38,12 @@ public class SlidingDoor : MonoBehaviour
     }
     void Update()
     {
-        if (IsPlayerNearby && Input.GetKeyDown(KeyCode.E))
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.E))
         {
-            if (IsOpening || IsClosing)
+            if (isOpening || isClosing)
                 return;
 
-            if (IsOpen==true)
+            if (isOpen == true)
             {
                 StartCoroutine(CloseDoor());
             }
@@ -39,24 +53,26 @@ public class SlidingDoor : MonoBehaviour
             }
         }
 
-    
+
     }
 
     public IEnumerator OpenDoor()
     {
+        StartPosition = transform.position;
         Vector3 endPosition = StartPosition + SlideDirection * SlideAmount;
 
         float time = 0;
-        IsOpening = true;
-        IsClosing = false;
+        isOpening = true;
+        isClosing = false;
         while (time < 1)
         {
             transform.position = Vector3.Lerp(StartPosition, endPosition, time);
             yield return null;
             time += Time.deltaTime * Speed;
         }
-        IsOpening = false;
-        IsOpen = true;
+        transform.position = endPosition;
+        isOpening = false;
+        isOpen = true;
     }
 
     public IEnumerator CloseDoor()
@@ -65,17 +81,18 @@ public class SlidingDoor : MonoBehaviour
         Vector3 start = transform.position;
 
         float time = 0;
-        IsClosing = true;
-        IsOpening = false;
+        isClosing = true;
+        isOpening = false;
         while (time < 1)
         {
             transform.position = Vector3.Lerp(start, endPosition, time);
             yield return null;
             time += Time.deltaTime * Speed;
         }
-        IsClosing = false;
-        IsOpen = false;
-        
+        transform.position = endPosition;
+        isClosing = false;
+        isOpen = false;
+
     }
-  
+
 }

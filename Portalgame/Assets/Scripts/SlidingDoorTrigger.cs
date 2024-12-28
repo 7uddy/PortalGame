@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SlidingDoorTrigger : MonoBehaviour
 {
-    public SlidingDoor doorScript;
+    [SerializeField] private SlidingDoor doorScript;
 
     private void OnTriggerEnter(Collider other)
     {
