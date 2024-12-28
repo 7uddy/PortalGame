@@ -1,46 +1,34 @@
 using System;
 using System.Collections;
 using System.Numerics;
+using Unity.VisualScripting;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
 public class SlidingDoor : MonoBehaviour
 {
+    [SerializeField] private Elevator elevatorScript;
     private bool isOpen = false;
-    public bool IsOpen
-    {
-        get { return isOpen; }
-    }
+    public bool IsOpen=> isOpen;
     private bool isPlayerNearby = false;
     public bool IsPlayerNearby
     {
         get { return isPlayerNearby; }
         set { isPlayerNearby = value; }
     }
-    private bool isOpening = false;
-    public bool IsOpening
-    {
-        get { return isOpening; }
-    }
-    private bool isClosing = false;
-    public bool IsClosing
-    {
-        get { return isClosing; }
-    }
+    private bool isMoving = false;
+    public bool IsMoving=> isMoving;
     [SerializeField] private float Speed = 1.0f;
     [SerializeField] private Vector3 SlideDirection = Vector3.up;
     [SerializeField] private float SlideAmount = 1.9f;
     private Vector3 StartPosition;
+    private Vector3 EndPosition;
 
-    void Start()
-    {
-        StartPosition = transform.position;
-    }
     void Update()
     {
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.E))
+        if (isPlayerNearby && !elevatorScript.IsMoving && Input.GetKeyDown(KeyCode.E))
         {
-            if (isOpening || isClosing)
+            if (isMoving)
                 return;
 
             if (isOpen == true)
@@ -52,47 +40,36 @@ public class SlidingDoor : MonoBehaviour
                 StartCoroutine(OpenDoor());
             }
         }
-
-
     }
 
     public IEnumerator OpenDoor()
     {
         StartPosition = transform.position;
-        Vector3 endPosition = StartPosition + SlideDirection * SlideAmount;
+        EndPosition = StartPosition + SlideDirection * SlideAmount;
 
-        float time = 0;
-        isOpening = true;
-        isClosing = false;
-        while (time < 1)
-        {
-            transform.position = Vector3.Lerp(StartPosition, endPosition, time);
-            yield return null;
-            time += Time.deltaTime * Speed;
-        }
-        transform.position = endPosition;
-        isOpening = false;
-        isOpen = true;
+        yield return StartCoroutine(MoveDoor(StartPosition, EndPosition));
     }
 
     public IEnumerator CloseDoor()
     {
-        Vector3 endPosition = StartPosition;
-        Vector3 start = transform.position;
+        EndPosition = StartPosition;
+        StartPosition = transform.position;
 
+        yield return StartCoroutine(MoveDoor(StartPosition, EndPosition));
+    }
+
+    private IEnumerator MoveDoor(Vector3 from, Vector3 to)
+    {
         float time = 0;
-        isClosing = true;
-        isOpening = false;
+        isMoving = true;
         while (time < 1)
         {
-            transform.position = Vector3.Lerp(start, endPosition, time);
+            transform.position = Vector3.Lerp(from, to, time);
             yield return null;
             time += Time.deltaTime * Speed;
         }
-        transform.position = endPosition;
-        isClosing = false;
-        isOpen = false;
-
+        transform.position = to;
+        isMoving = false;
+        isOpen = !isOpen;
     }
-
 }

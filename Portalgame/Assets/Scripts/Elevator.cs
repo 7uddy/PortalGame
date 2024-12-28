@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Elvator : MonoBehaviour
+public class Elevator : MonoBehaviour
 {
     [SerializeField] private SlidingDoor doorScript;
     [SerializeField] private float Speed = 1.0f;
@@ -14,7 +14,12 @@ public class Elvator : MonoBehaviour
 
     private bool isAtFloor1 = true;
     private bool isMoving = false;
-
+    private bool isPlayerNearby = false;
+    public bool IsPlayerNearby
+    {
+        get { return isPlayerNearby; }
+        set { isPlayerNearby = value; }
+    }
     public bool IsAtFloor1 => isAtFloor1;
     public bool IsAtFloor2 => !isAtFloor1;
     public bool IsMoving => isMoving;
@@ -22,24 +27,37 @@ public class Elvator : MonoBehaviour
     void Start()
     {
         Floor1Position = transform.position;
+        Floor2Position += Floor1Position;
     }
 
     void Update()
     {
-        if(doorScript.IsPlayerNearby && !doorScript.IsOpen && !doorScript.IsOpening && !doorScript.IsClosing && Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-           if (isMoving)
-                return;
+            StartCoroutine(HandleInteraction());
+        }
+    }
+
+    private IEnumerator HandleInteraction()
+    {
+        if (IsPlayerNearby)
+        {
+            if (doorScript.IsOpen && !doorScript.IsMoving)
+            {
+                yield return StartCoroutine(doorScript.CloseDoor());
+            }
+            if (isMoving)
+                yield break;
+
             if (isAtFloor1)
             {
-                StartCoroutine(MoveToFloor(Floor2Position));
+                yield return StartCoroutine(MoveToFloor(Floor2Position));
             }
             else
             {
-                StartCoroutine(MoveToFloor(Floor1Position));
+                yield return StartCoroutine(MoveToFloor(Floor1Position));
             }
         }
-        
     }
 
     private IEnumerator MoveToFloor(Vector3 targetPosition)
@@ -47,7 +65,7 @@ public class Elvator : MonoBehaviour
         isMoving = true;
         float time = 0f;
 
-         while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, SmoothTime);
             yield return null;
@@ -57,5 +75,6 @@ public class Elvator : MonoBehaviour
         transform.position = targetPosition;
         isAtFloor1 = targetPosition == Floor1Position;
         isMoving = false;
+        StartCoroutine(doorScript.OpenDoor());
     }
 }

@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using UnityEngine;
 
 public class SlidingDoorTrigger : MonoBehaviour
@@ -10,7 +9,7 @@ public class SlidingDoorTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             doorScript.IsPlayerNearby = true;
-            if(!doorScript.IsOpen && !doorScript.IsOpening && !doorScript.IsClosing)
+            if (!doorScript.IsOpen && !doorScript.IsMoving)
             {
                 StartCoroutine(doorScript.OpenDoor());
             }
@@ -22,7 +21,7 @@ public class SlidingDoorTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             doorScript.IsPlayerNearby = false;
-            if (doorScript.IsOpen && !doorScript.IsOpening && !doorScript.IsClosing)
+            if (doorScript.IsOpen && !doorScript.IsMoving)
             {
                 StartCoroutine(doorScript.CloseDoor());
             }
