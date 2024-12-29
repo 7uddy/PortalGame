@@ -5,10 +5,8 @@ using UnityEngine;
 public class Elevator : MonoBehaviour
 {
     [SerializeField] private SlidingDoor doorScript;
-    [SerializeField] private float Speed = 1.0f;
     [SerializeField] private float SmoothTime = 0.3f;
     [SerializeField] private Vector3 Floor2Position;
-    [SerializeField] private Vector3 MoveDirection = Vector3.up;
     private Vector3 Floor1Position;
     private Vector3 velocity = Vector3.zero;
 
@@ -63,13 +61,11 @@ public class Elevator : MonoBehaviour
     private IEnumerator MoveToFloor(Vector3 targetPosition)
     {
         isMoving = true;
-        float time = 0f;
 
         while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, SmoothTime);
             yield return null;
-            time += Time.deltaTime * Speed;
         }
 
         transform.position = targetPosition;
