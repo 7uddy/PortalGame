@@ -1,0 +1,11 @@
+Model Information:
+* title:	Portal 2 piston
+* source:	https://sketchfab.com/3d-models/portal-2-piston-09165643dbc848289d69e10471eb73e7
+* author:	jo kil (https://sketchfab.com/jo_kil_thr)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Portal 2 piston" (https://sketchfab.com/3d-models/portal-2-piston-09165643dbc848289d69e10471eb73e7) by jo kil (https://sketchfab.com/jo_kil_thr) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Portal 2 Laser Emitter
+* source:	https://sketchfab.com/3d-models/portal-2-laser-emitter-a2e6c22053cd441bb50541677ddd7fc7
+* author:	Road studios (https://sketchfab.com/Redwthr)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Portal 2 Laser Emitter" (https://sketchfab.com/3d-models/portal-2-laser-emitter-a2e6c22053cd441bb50541677ddd7fc7) by Road studios (https://sketchfab.com/Redwthr) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

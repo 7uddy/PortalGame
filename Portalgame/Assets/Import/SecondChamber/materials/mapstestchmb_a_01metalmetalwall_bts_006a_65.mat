@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: mapstestchmb_a_01metalmetalwall_bts_006a_65
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_Parent: {fileID: 2100000, guid: 788d6060880b3e544896b205e31a49ca, type: 2}
+  m_Parent: {fileID: 2100000, guid: 8bfb2f51189892640ac2e0012ba302ac, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords:

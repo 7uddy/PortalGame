@@ -1,0 +1,11 @@
+Model Information:
+* title:	Portal Button
+* source:	https://sketchfab.com/3d-models/portal-button-4f54b08a40834f4ebe92ebf45209e03f
+* author:	LukeLauOne (https://sketchfab.com/LukeLauOne)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Portal Button" (https://sketchfab.com/3d-models/portal-button-4f54b08a40834f4ebe92ebf45209e03f) by LukeLauOne (https://sketchfab.com/LukeLauOne) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

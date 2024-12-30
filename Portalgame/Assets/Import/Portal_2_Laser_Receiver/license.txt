@@ -1,0 +1,11 @@
+Model Information:
+* title:	Portal 2 Laser Receiver
+* source:	https://sketchfab.com/3d-models/portal-2-laser-receiver-88d02fd3c0a149d88d0defc9d3168d43
+* author:	Road studios (https://sketchfab.com/Redwthr)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Portal 2 Laser Receiver" (https://sketchfab.com/3d-models/portal-2-laser-receiver-88d02fd3c0a149d88d0defc9d3168d43) by Road studios (https://sketchfab.com/Redwthr) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
