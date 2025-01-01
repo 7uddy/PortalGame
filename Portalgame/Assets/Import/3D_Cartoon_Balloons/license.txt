@@ -1,0 +1,11 @@
+Model Information:
+* title:	3D Cartoon Balloons
+* source:	https://sketchfab.com/3d-models/3d-cartoon-balloons-388a97e1eebd463aa202451d44a204b6
+* author:	Sufi_Artist (https://sketchfab.com/Sufi_Artist)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "3D Cartoon Balloons" (https://sketchfab.com/3d-models/3d-cartoon-balloons-388a97e1eebd463aa202451d44a204b6) by Sufi_Artist (https://sketchfab.com/Sufi_Artist) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

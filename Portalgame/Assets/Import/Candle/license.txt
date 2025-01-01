@@ -1,0 +1,11 @@
+Model Information:
+* title:	Candle
+* source:	https://sketchfab.com/3d-models/candle-6e7f41eb2ef2420487a098b9c5ec1b72
+* author:	Squirmy Worm (https://sketchfab.com/squirmyworm064)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Candle" (https://sketchfab.com/3d-models/candle-6e7f41eb2ef2420487a098b9c5ec1b72) by Squirmy Worm (https://sketchfab.com/squirmyworm064) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Portal cube
+* source:	https://sketchfab.com/3d-models/portal-cube-c31fbc4fe0c542fb9e94c6ede00e3c8e
+* author:	Typur (https://sketchfab.com/Typur)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Portal cube" (https://sketchfab.com/3d-models/portal-cube-c31fbc4fe0c542fb9e94c6ede00e3c8e) by Typur (https://sketchfab.com/Typur) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
