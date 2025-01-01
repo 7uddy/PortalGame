@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 /// <summary>
 /// Controls loading scene implementation and scene management.
@@ -12,6 +13,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameObject m_LoadingScreen;
     public Slider Slider;
+
+    public TextMeshProUGUI TipText;
+    public CanvasGroup TipAlphaCanvas;
+    private int _currentTipIndex;
+    public string[] Tips;
 
     /// <summary>
     /// Instantiates singleton and disables loading scene.
@@ -38,6 +44,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("LOADING SCENE: " +  sceneIndex);
         m_LoadingScreen.SetActive(true);
         Slider.value = 0;
+        StartCoroutine(UpdateTip());
         StartCoroutine(SwitchToSceneAsync(sceneIndex.ConvertEnumToInt()));
     }
 
@@ -53,9 +60,38 @@ public class GameManager : MonoBehaviour
             Slider.value = asyncLoad.progress;
             yield return null;
         }
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(20f);
         m_LoadingScreen.SetActive(false);
     }
+
+    /// <summary>
+    /// Manipulates the animation of tips.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator UpdateTip()
+    {
+        _currentTipIndex = Random.Range(0, Tips.Length);
+        TipText.text = Tips[_currentTipIndex];
+        while(m_LoadingScreen.activeInHierarchy)
+        {
+            yield return new WaitForSeconds(3f);
+
+            LeanTween.alphaCanvas(TipAlphaCanvas, 0, 0.5f);
+
+            yield return new WaitForSeconds(0.5f);
+
+            _currentTipIndex++;
+            if(_currentTipIndex >= Tips.Length)
+            {
+                _currentTipIndex = 0;
+            }
+
+            TipText.text = Tips[_currentTipIndex];
+
+            LeanTween.alphaCanvas(TipAlphaCanvas, 1, 0.5f);
+        }
+    }
+
     
     /// <summary>
     /// Closes Application/Editor based on the environment it is launched in.
