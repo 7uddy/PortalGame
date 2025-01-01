@@ -1,20 +1,36 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 //Controls the transition between scenes.
 public class GameManager : MonoBehaviour
 {
-    public static GameManager _instance;
+    public static GameManager Instance;
 
     private void Awake()
     {
-        _instance = this;
-        SceneManager.LoadSceneAsync((int)SceneIndexes.TITLE_SCREEN, LoadSceneMode.Additive);
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void LoadGame()
+    public void SwitchToScene(SceneIndexes sceneIndex)
     {
-        SceneManager.UnloadSceneAsync((int)SceneIndexes.TITLE_SCREEN);
-        SceneManager.LoadSceneAsync((int)SceneIndexes.GAME, LoadSceneMode.Additive);
+        Debug.Log("LOADING SCENE " +  sceneIndex);
+        SceneManager.LoadScene(SceneHelper.ConvertEnumToInt(sceneIndex));
+    }
+
+    public void ExitApplication()
+    {
+#if !UNITY_EDITOR
+        Application.Quit();
+#else
+        EditorApplication.isPlaying = false;
+#endif
     }
 }
