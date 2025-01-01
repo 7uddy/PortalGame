@@ -4,18 +4,18 @@ public class MainMenuManager : MonoBehaviour
 {
     public void OnStartButtonClicked()
     {
-        Debug.Log("START BUTTON CLICKED.");
+        Debug.Log("BUTTON CLICKED: START");
         GameManager.Instance.SwitchToScene(SceneIndexes.GAME);
     }
 
     public void OnSettingsButtonClicked()
     {
-        Debug.Log("SETTINGS BUTTON CLICKED.");
+        Debug.Log("BUTTON CLICKED: SETTINGS");
     }
 
     public void OnExitButtonClicked()
     {
-        Debug.Log("EXIT BUTTON CLICKED.");
+        Debug.Log("BUTTON CLICKED: EXIT");
         GameManager.Instance.ExitApplication();
     }
 }
