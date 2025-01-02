@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -143.59998}
+  m_AnchoredPosition: {x: 16, y: -143.59998}
   m_SizeDelta: {x: 94, y: 20}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &33256086
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LOADING
+  m_text: Loading
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 2
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -305,6 +305,7 @@ GameObject:
   - component: {fileID: 248505514}
   - component: {fileID: 248505516}
   - component: {fileID: 248505515}
+  - component: {fileID: 248505517}
   m_Layer: 5
   m_Name: BackgroundImage
   m_TagString: Untagged
@@ -369,6 +370,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 248505513}
   m_CullTransparentMesh: 1
+--- !u!225 &248505517
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248505513}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &314521308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,14 +1083,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LoadingScreen: {fileID: 1624794609}
   Slider: {fileID: 1697462024}
+  LoadingText: {fileID: 33256086}
   TipText: {fileID: 1971610814}
   TipAlphaCanvas: {fileID: 1971610811}
   Tips:
-  - Tip1
-  - Tip2
-  - Tip3
-  - Tip4
+  - Vivamus mattis porttitor lorem. Phasellus scelerisque, est non tempor suscipit,
+    mauris felis venenatis tortor, in auctor sapien ipsum fermentum magna.
+  - Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+    himenaeos. Sed hendrerit accumsan nisl, et tempor diam consectetur et. Quisque
+    congue lorem erat, et porttitor eros rutrum posuere. Curabitur a porttitor nisl,
+    ut pulvinar erat.
+  - Nam lacus leo, imperdiet quis aliquam et, congue eu nunc. Praesent feugiat turpis
+    et libero facilisis, a consectetur nibh placerat.
+  - Suspendisse pharetra, dolor a commodo blandit, enim lorem congue turpis, ut tincidunt
+    sapien lorem in nisl. Pellentesque volutpat placerat augue nec blandit.
   - Tip5
+  BackgroundImage: {fileID: 248505515}
+  BackgroundImageAlphaCanvas: {fileID: 248505517}
+  BackgroundImages:
+  - {fileID: 21300000, guid: e1f79e19542c2f247b29ae5c696b9380, type: 3}
+  - {fileID: 21300000, guid: 68381a7ab8fecf84d878fe8f85731ef0, type: 3}
+  - {fileID: 21300000, guid: d3436ef52d120e34aac2e22b9cb5d013, type: 3}
 --- !u!114 &1008094578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1760,6 +1786,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 248505514}
+  - {fileID: 1751572968}
   - {fileID: 1697462023}
   - {fileID: 33256085}
   - {fileID: 1971610813}
@@ -1992,6 +2019,94 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737636915}
   m_CullTransparentMesh: 1
+--- !u!1 &1751572967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1751572968}
+  - component: {fileID: 1751572971}
+  - component: {fileID: 1751572970}
+  - component: {fileID: 1751572969}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1751572968
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751572967}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1624794610}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: -147.3}
+  m_SizeDelta: {x: 600.4, y: 60}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!225 &1751572969
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751572967}
+  m_Enabled: 1
+  m_Alpha: 0.2
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1751572970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751572967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.06918234, g: 0.06918234, b: 0.06918234, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1751572971
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751572967}
+  m_CullTransparentMesh: 1
 --- !u!1 &1929226234
 GameObject:
   m_ObjectHideFlags: 0
@@ -2156,8 +2271,8 @@ CanvasGroup:
   m_GameObject: {fileID: 1971610810}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!222 &1971610812
 CanvasRenderer:
@@ -2184,7 +2299,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: -109.96}
-  m_SizeDelta: {x: 402.3, y: 20}
+  m_SizeDelta: {x: 575.76, y: 20}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1971610814
 MonoBehaviour:
@@ -2206,7 +2321,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tip Template
+  m_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean convallis
+    varius vestibulum. Praesent placerat est in augue dapibus, quis tincidunt velit
+    aliquam. Suspendisse potenti. Praesent in ornare eros, vitae lacinia leo.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2233,12 +2350,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.9
+  m_fontSize: 8.8
   m_fontSizeBase: 13.9
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 5
+  m_fontSizeMax: 50
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096

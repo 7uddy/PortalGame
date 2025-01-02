@@ -13,11 +13,17 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameObject m_LoadingScreen;
     public Slider Slider;
+    public TextMeshProUGUI LoadingText;
 
     public TextMeshProUGUI TipText;
     public CanvasGroup TipAlphaCanvas;
     private int _currentTipIndex;
     public string[] Tips;
+
+    public Image BackgroundImage;
+    public CanvasGroup BackgroundImageAlphaCanvas;
+    private int _currentBackgroundIndex;
+    public Sprite[] BackgroundImages;
 
     /// <summary>
     /// Instantiates singleton and disables loading scene.
@@ -42,6 +48,9 @@ public class GameManager : MonoBehaviour
     {
         _currentTipIndex = Random.Range(0, Tips.Length);
         TipText.text = Tips[_currentTipIndex];
+
+        _currentBackgroundIndex = Random.Range(0, BackgroundImages.Length);
+        BackgroundImage.overrideSprite = BackgroundImages[_currentBackgroundIndex];
     }
 
     /// <summary>
@@ -53,7 +62,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("LOADING SCENE: " +  sceneIndex);
         m_LoadingScreen.SetActive(true);
         Slider.value = 0;
-        //StartCoroutine(UpdateTip());
+        StartCoroutine(UpdateBackgroundImage());
+        StartCoroutine(UpdateLoadingText());
         StartCoroutine(SwitchToSceneAsync(sceneIndex.ConvertEnumToInt()));
     }
 
@@ -69,40 +79,52 @@ public class GameManager : MonoBehaviour
             Slider.value = asyncLoad.progress;
             yield return null;
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         m_LoadingScreen.SetActive(false);
     }
 
-    ///// <summary>
-    ///// Manipulates the animation of tips.
-    ///// </summary>
-    //private IEnumerator UpdateTip()
-    //{
-    //    _currentTipIndex = Random.Range(0, Tips.Length);
-    //    TipText.text = Tips[_currentTipIndex];
-    //    while(m_LoadingScreen.activeInHierarchy)
-    //    {
-    //        yield return new WaitForSeconds(3f);
+    /// <summary>
+    /// Updates the Loading Text.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator UpdateLoadingText()
+    {
+        int dotCount = 0;
+        string baseText = "Loading";
 
-    //        LeanTween.alphaCanvas(TipAlphaCanvas, 0, 0.5f);
+        while (m_LoadingScreen.activeInHierarchy)
+        {
+            LoadingText.text = baseText + new string('.', dotCount);
 
-    //        yield return new WaitForSeconds(0.5f);
+            dotCount = (dotCount + 1) % 4;
 
-    //        _currentTipIndex++;
-    //        if(_currentTipIndex >= Tips.Length)
-    //        {
-    //            _currentTipIndex = 0;
-    //        }
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
 
-    //        TipText.text = Tips[_currentTipIndex];
+    /// <summary>
+    /// Manipulates the switch of background images.
+    /// </summary>
+    private IEnumerator UpdateBackgroundImage()
+    {
+        while (m_LoadingScreen.activeInHierarchy)
+        {
+            yield return new WaitForSeconds(5f);
 
-    //        LeanTween.alphaCanvas(TipAlphaCanvas, 1, 0.5f);
-    //    }
-    //}
+            _currentBackgroundIndex++;
+            if (_currentBackgroundIndex >= BackgroundImages.Length)
+            {
+                _currentBackgroundIndex = 0;
+            }
+
+            BackgroundImage.overrideSprite = BackgroundImages[_currentBackgroundIndex];
+        }
+    }
+
 
     private bool _isChangingTip = false;
     /// <summary>
-    /// Checks for input for tip.
+    /// Updates tip based on user input.
     /// </summary>
     private void Update()
     {
