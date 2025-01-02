@@ -11,19 +11,29 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
+    [SerializeField]
     public GameObject m_LoadingScreen;
+    [SerializeField]
     public Slider Slider;
+    [SerializeField]
     public TextMeshProUGUI LoadingText;
 
+    [SerializeField]
     public TextMeshProUGUI TipText;
+    [SerializeField]
     public CanvasGroup TipAlphaCanvas;
-    private int _currentTipIndex;
+    [SerializeField]
     public string[] Tips;
 
+    private int _currentTipIndex;
+
+    [SerializeField]
     public Image BackgroundImage;
+    [SerializeField]
     public CanvasGroup BackgroundImageAlphaCanvas;
+
     private int _currentBackgroundIndex;
-    public Sprite[] BackgroundImages;
 
     /// <summary>
     /// Instantiates singleton and disables loading scene.
@@ -49,8 +59,9 @@ public class GameManager : MonoBehaviour
         _currentTipIndex = Random.Range(0, Tips.Length);
         TipText.text = Tips[_currentTipIndex];
 
-        _currentBackgroundIndex = Random.Range(0, BackgroundImages.Length);
-        BackgroundImage.overrideSprite = BackgroundImages[_currentBackgroundIndex];
+        _currentBackgroundIndex = Random.Range(0, SpriteLoader.Instance.LoadingSceneBackgrounds.Count);
+        BackgroundImage.overrideSprite = SpriteLoader.Instance.LoadingSceneBackgrounds[_currentBackgroundIndex];
+
     }
 
     /// <summary>
@@ -79,7 +90,7 @@ public class GameManager : MonoBehaviour
             Slider.value = asyncLoad.progress;
             yield return null;
         }
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(0.2f);
         m_LoadingScreen.SetActive(false);
     }
 
@@ -109,15 +120,17 @@ public class GameManager : MonoBehaviour
     {
         while (m_LoadingScreen.activeInHierarchy)
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(2.5f);
 
             _currentBackgroundIndex++;
-            if (_currentBackgroundIndex >= BackgroundImages.Length)
+            if (_currentBackgroundIndex >= SpriteLoader.Instance.LoadingSceneBackgrounds.Count)
             {
                 _currentBackgroundIndex = 0;
             }
 
-            BackgroundImage.overrideSprite = BackgroundImages[_currentBackgroundIndex];
+            BackgroundImage.overrideSprite = SpriteLoader.Instance.LoadingSceneBackgrounds[_currentBackgroundIndex];
+
+            yield return new WaitForSeconds(2.5f);
         }
     }
 
