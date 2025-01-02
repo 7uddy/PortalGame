@@ -36,6 +36,15 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Generates the first tip.
+    /// </summary>
+    private void OnEnable()
+    {
+        _currentTipIndex = Random.Range(0, Tips.Length);
+        TipText.text = Tips[_currentTipIndex];
+    }
+
+    /// <summary>
     /// Switches the scene to the one received as parameter. Starts coroutine related to loading screen.
     /// </summary>
     /// <param name="sceneIndex">Desired scene's index.</param>
@@ -44,7 +53,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("LOADING SCENE: " +  sceneIndex);
         m_LoadingScreen.SetActive(true);
         Slider.value = 0;
-        StartCoroutine(UpdateTip());
+        //StartCoroutine(UpdateTip());
         StartCoroutine(SwitchToSceneAsync(sceneIndex.ConvertEnumToInt()));
     }
 
@@ -64,35 +73,79 @@ public class GameManager : MonoBehaviour
         m_LoadingScreen.SetActive(false);
     }
 
+    ///// <summary>
+    ///// Manipulates the animation of tips.
+    ///// </summary>
+    //private IEnumerator UpdateTip()
+    //{
+    //    _currentTipIndex = Random.Range(0, Tips.Length);
+    //    TipText.text = Tips[_currentTipIndex];
+    //    while(m_LoadingScreen.activeInHierarchy)
+    //    {
+    //        yield return new WaitForSeconds(3f);
+
+    //        LeanTween.alphaCanvas(TipAlphaCanvas, 0, 0.5f);
+
+    //        yield return new WaitForSeconds(0.5f);
+
+    //        _currentTipIndex++;
+    //        if(_currentTipIndex >= Tips.Length)
+    //        {
+    //            _currentTipIndex = 0;
+    //        }
+
+    //        TipText.text = Tips[_currentTipIndex];
+
+    //        LeanTween.alphaCanvas(TipAlphaCanvas, 1, 0.5f);
+    //    }
+    //}
+
+    private bool _isChangingTip = false;
     /// <summary>
-    /// Manipulates the animation of tips.
+    /// Checks for input for tip.
     /// </summary>
-    /// <returns></returns>
-    private IEnumerator UpdateTip()
+    private void Update()
     {
-        _currentTipIndex = Random.Range(0, Tips.Length);
-        TipText.text = Tips[_currentTipIndex];
-        while(m_LoadingScreen.activeInHierarchy)
+        if (_isChangingTip) return;
+
+        if (Input.GetKeyUp(KeyCode.D))
         {
-            yield return new WaitForSeconds(3f);
-
-            LeanTween.alphaCanvas(TipAlphaCanvas, 0, 0.5f);
-
-            yield return new WaitForSeconds(0.5f);
-
-            _currentTipIndex++;
-            if(_currentTipIndex >= Tips.Length)
-            {
-                _currentTipIndex = 0;
-            }
-
-            TipText.text = Tips[_currentTipIndex];
-
-            LeanTween.alphaCanvas(TipAlphaCanvas, 1, 0.5f);
+            ChangeTip(1);
+        }
+        else if (Input.GetKeyUp(KeyCode.A))
+        {
+            ChangeTip(-1);
         }
     }
 
-    
+    /// <summary>
+    /// Updates the current tip with the adiacent one on the left/right based on the direction.
+    /// </summary>
+    /// <param name="direction">Is 1 if the move is in the right direction, -1 in the opposite.</param>
+    private void ChangeTip(int direction)
+    {
+        _isChangingTip = true;
+        LeanTween.alphaCanvas(TipAlphaCanvas, 0, 0.5f).setOnComplete(() =>
+        {
+            _currentTipIndex += direction;
+
+            if (_currentTipIndex >= Tips.Length)
+            {
+                _currentTipIndex = 0;
+            }
+            else if (_currentTipIndex < 0)
+            {
+                _currentTipIndex = Tips.Length - 1;
+            }
+
+            TipText.text = Tips[_currentTipIndex];
+            LeanTween.alphaCanvas(TipAlphaCanvas, 1, 0.5f).setOnComplete(() =>
+            {
+                _isChangingTip = false;
+            });
+        });
+    }
+
     /// <summary>
     /// Closes Application/Editor based on the environment it is launched in.
     /// </summary>
