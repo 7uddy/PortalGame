@@ -23,8 +23,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI TipText;
     [SerializeField]
     public CanvasGroup TipAlphaCanvas;
-    [SerializeField]
-    public string[] Tips;
 
     private int _currentTipIndex;
 
@@ -52,16 +50,15 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Generates the first tip.
+    /// Generates the data, such as the tip and background image, for a new loading scene.
     /// </summary>
-    private void OnEnable()
+    private void UpdateForNewLoadingScene()
     {
-        _currentTipIndex = Random.Range(0, Tips.Length);
-        TipText.text = Tips[_currentTipIndex];
+        _currentTipIndex = Random.Range(0, TipsLoader.Instance.Tips.Count);
+        TipText.text = TipsLoader.Instance.Tips[_currentTipIndex].Message;
 
         _currentBackgroundIndex = Random.Range(0, SpriteLoader.Instance.LoadingSceneBackgrounds.Count);
         BackgroundImage.overrideSprite = SpriteLoader.Instance.LoadingSceneBackgrounds[_currentBackgroundIndex];
-
     }
 
     /// <summary>
@@ -70,6 +67,7 @@ public class GameManager : MonoBehaviour
     /// <param name="sceneIndex">Desired scene's index.</param>
     public void SwitchToScene(SceneIndexes sceneIndex)
     {
+        UpdateForNewLoadingScene();
         Debug.Log("LOADING SCENE: " +  sceneIndex);
         m_LoadingScreen.SetActive(true);
         Slider.value = 0;
@@ -90,7 +88,7 @@ public class GameManager : MonoBehaviour
             Slider.value = asyncLoad.progress;
             yield return null;
         }
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(5f);
         m_LoadingScreen.SetActive(false);
     }
 
@@ -164,16 +162,16 @@ public class GameManager : MonoBehaviour
         {
             _currentTipIndex += direction;
 
-            if (_currentTipIndex >= Tips.Length)
+            if (_currentTipIndex >= TipsLoader.Instance.Tips.Count)
             {
                 _currentTipIndex = 0;
             }
             else if (_currentTipIndex < 0)
             {
-                _currentTipIndex = Tips.Length - 1;
+                _currentTipIndex = TipsLoader.Instance.Tips.Count - 1;
             }
 
-            TipText.text = Tips[_currentTipIndex];
+            TipText.text = TipsLoader.Instance.Tips[_currentTipIndex].Message;
             LeanTween.alphaCanvas(TipAlphaCanvas, 1, 0.5f).setOnComplete(() =>
             {
                 _isChangingTip = false;

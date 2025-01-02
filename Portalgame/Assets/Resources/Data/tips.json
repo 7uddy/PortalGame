@@ -1,0 +1,7 @@
+{
+  "Tips": [
+    { "Message": "Tip 1: Press Space to jump!" },
+    { "Message": "Tip 2: Keep pressing Shift to sprint!" },
+    { "Message": "Tip 3: Don't be afraid to do parkour!" }
+  ]
+}

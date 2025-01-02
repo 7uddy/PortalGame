@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class SpriteLoader : MonoBehaviour
 {
     public static SpriteLoader Instance;
 
+    [NonSerialized]
     public List<Sprite> LoadingSceneBackgrounds = new List<Sprite>();
 
     /// <summary>

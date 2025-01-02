@@ -1086,18 +1086,6 @@ MonoBehaviour:
   LoadingText: {fileID: 33256086}
   TipText: {fileID: 1971610814}
   TipAlphaCanvas: {fileID: 1971610811}
-  Tips:
-  - Vivamus mattis porttitor lorem. Phasellus scelerisque, est non tempor suscipit,
-    mauris felis venenatis tortor, in auctor sapien ipsum fermentum magna.
-  - Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-    himenaeos. Sed hendrerit accumsan nisl, et tempor diam consectetur et. Quisque
-    congue lorem erat, et porttitor eros rutrum posuere. Curabitur a porttitor nisl,
-    ut pulvinar erat.
-  - Nam lacus leo, imperdiet quis aliquam et, congue eu nunc. Praesent feugiat turpis
-    et libero facilisis, a consectetur nibh placerat.
-  - Suspendisse pharetra, dolor a commodo blandit, enim lorem congue turpis, ut tincidunt
-    sapien lorem in nisl. Pellentesque volutpat placerat augue nec blandit.
-  - Tip5
   BackgroundImage: {fileID: 248505515}
   BackgroundImageAlphaCanvas: {fileID: 248505517}
 --- !u!114 &1008094578
@@ -2148,6 +2136,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751572967}
   m_CullTransparentMesh: 1
+--- !u!1 &1892882971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1892882973}
+  - component: {fileID: 1892882972}
+  m_Layer: 0
+  m_Name: TipsLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1892882972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892882971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b4757c6d4985f41925c147d23bf813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tips: []
+--- !u!4 &1892882973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892882971}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1239.748, y: 715.2041, z: 38.852695}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1929226234
 GameObject:
   m_ObjectHideFlags: 0
@@ -2518,3 +2551,4 @@ SceneRoots:
   - {fileID: 825122898}
   - {fileID: 1008094581}
   - {fileID: 1536745246}
+  - {fileID: 1892882973}
