@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
             Slider.value = asyncLoad.progress;
             yield return null;
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         m_LoadingScreen.SetActive(false);
     }
 
