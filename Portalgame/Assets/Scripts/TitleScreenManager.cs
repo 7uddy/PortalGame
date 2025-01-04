@@ -18,9 +18,9 @@ public class TitleScreenManager : MonoBehaviour
 
     public void OnSettingsButtonClicked()
     {
-        Debug.Log("BUTTON CLICKED: SETTINGS");
-        m_SettingsMenuObject.SetActive(true);
-        m_MainMenuObject.SetActive(false);
+        Debug.Log("BUTTON CLICKED: SWITCH MENU/SETTINGS");
+        m_SettingsMenuObject.SetActive(!m_SettingsMenuObject.activeSelf);
+        m_MainMenuObject.SetActive(!m_MainMenuObject.activeSelf);
     }
 
     public void OnExitButtonClicked()
@@ -31,10 +31,5 @@ public class TitleScreenManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            m_SettingsMenuObject.SetActive(!m_SettingsMenuObject.activeSelf);
-            m_MainMenuObject.SetActive(!m_MainMenuObject.activeSelf);
-        }
     }
 }
