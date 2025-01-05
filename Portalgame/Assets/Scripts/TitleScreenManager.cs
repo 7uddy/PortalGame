@@ -36,11 +36,7 @@ public class TitleScreenManager : MonoBehaviour
 
     private IEnumerator ExitAfterSound()
     {
-        yield return new WaitForSeconds(0.2f); 
+        yield return new WaitForSeconds(0.2f);
         GameManager.Instance.ExitApplication();
-    }
-
-    private void Update()
-    {
     }
 }
