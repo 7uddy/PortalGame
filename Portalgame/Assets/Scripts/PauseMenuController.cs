@@ -10,7 +10,13 @@ public class PauseMenuController : MonoBehaviour
     public static bool GameIsPaused;
     [SerializeField]
     public GameObject m_PauseMenuObject;
-    
+
+    [SerializeField] 
+    public GameObject m_PauseMainMenuObject;
+
+    [SerializeField]
+    public GameObject m_PauseSettingsMenuObject;
+
     /// <summary>
     /// Makes pause menu object disabled.
     /// </summary>
@@ -78,7 +84,9 @@ public class PauseMenuController : MonoBehaviour
     {
         Debug.Log("BUTTON CLICKED: GO TO SETTINGS MENU");
         SoundManager.Instance.PlaySound2D("UIClick");
-        /*TO DO*/
+
+        m_PauseMainMenuObject.SetActive(!m_PauseMainMenuObject.activeSelf);
+        m_PauseSettingsMenuObject.SetActive(!m_PauseSettingsMenuObject.activeSelf);
     }
     /// <summary>
     /// 
@@ -104,7 +112,7 @@ public class PauseMenuController : MonoBehaviour
 
     private IEnumerator ExitAfterSound()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSecondsRealtime(0.1f);
         GameManager.Instance.ExitApplication();
     }
 }

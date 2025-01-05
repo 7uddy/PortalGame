@@ -43,6 +43,8 @@ public class TipsLoader : MonoBehaviour
             {
                 Tips = JsonUtility.FromJson<TipListWrapper>(jsonFile.ToString()).Tips;
                 Debug.Log("LOADED NUMBER OF TIPS: " + Tips.Count);
+
+                ShuffleTips();
             }
             catch (Exception e)
             {
@@ -54,7 +56,18 @@ public class TipsLoader : MonoBehaviour
             Debug.LogError("TIPS FILE NOT FOUND.");
         }
     }
-
+    private void ShuffleTips()
+    {
+        System.Random rng = new System.Random();
+        int n = Tips.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            (Tips[n], Tips[k]) = (Tips[k], Tips[n]);
+        }
+        Debug.Log("TIPS SHUFFLED.");
+    }
 }
 
 [Serializable]
