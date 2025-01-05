@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        MusicManager.Instance.PlayMusic("MainMenu");
         Instance = this;
         DontDestroyOnLoad(gameObject);
         m_LoadingScreen.SetActive(false);
@@ -54,6 +55,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void UpdateForNewLoadingScene()
     {
+        MusicManager.Instance.PlayMusic("LoadingScreen");
+
         _currentTipIndex = Random.Range(0, TipsLoader.Instance.Tips.Count);
         TipText.text = TipsLoader.Instance.Tips[_currentTipIndex].Message;
 
@@ -89,6 +92,13 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(2f);
+
+        if(id == SceneIndexes.TITLE_SCREEN.ConvertEnumToInt())
+            MusicManager.Instance.PlayMusic("MainMenu");
+        else
+            MusicManager.Instance.PlayMusic("Game");
+
+
         m_LoadingScreen.SetActive(false);
     }
 
