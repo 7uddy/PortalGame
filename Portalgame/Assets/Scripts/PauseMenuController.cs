@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 /// <summary>
 /// Controls the pause menu in game.
@@ -67,6 +68,7 @@ public class PauseMenuController : MonoBehaviour
     public void OnResumeButtonClick()
     {
         Debug.Log("BUTTON CLICKED: RESUME");
+        SoundManager.Instance.PlaySound2D("UIClick");
         Resume();
     }
     /// <summary>
@@ -75,6 +77,7 @@ public class PauseMenuController : MonoBehaviour
     public void OnSettingsButtonClicked()
     {
         Debug.Log("BUTTON CLICKED: GO TO SETTINGS MENU");
+        SoundManager.Instance.PlaySound2D("UIClick");
         /*TO DO*/
     }
     /// <summary>
@@ -83,6 +86,7 @@ public class PauseMenuController : MonoBehaviour
     public void OnGoToMainMenuButtonClicked()
     {
         Debug.Log("BUTTON CLICKED: GO TO MAIN MENU");
+        SoundManager.Instance.PlaySound2D("UIClick");
         Time.timeScale = 1f;
         GameIsPaused = false;
         GameManager.Instance.SwitchToScene(SceneIndexes.TITLE_SCREEN);
@@ -93,6 +97,14 @@ public class PauseMenuController : MonoBehaviour
     public void OnQuitButtonClicked()
     {
         Debug.Log("BUTTON CLICKED: EXIT APPLICATION");
+        SoundManager.Instance.PlaySound2D("UIClick");
+
+        StartCoroutine(ExitAfterSound());
+    }
+
+    private IEnumerator ExitAfterSound()
+    {
+        yield return new WaitForSeconds(0.2f);
         GameManager.Instance.ExitApplication();
     }
 }
