@@ -12,7 +12,7 @@ public class FPSController : PortalableObject
     public float jumpPower = 7f;
     public float gravity = 10f;
 
-    Vector3 rot = Vector3.zero;
+    //Vector3 rot = Vector3.zero;
     //float rotSpeed = 40f;
     Animator anim;
 
@@ -25,33 +25,32 @@ public class FPSController : PortalableObject
 
     public bool canMove = true;
 
-    void Awake()
+    private CameraMove cameraMove;
+    protected override void Awake()
     {
+        base.Awake();
+        cameraMove = GetComponent<CameraMove>();
         anim = gameObject.GetComponent<Animator>();
         //gameObject.transform.eulerAngles = rot;
     }
 
-    //private CameraMove cameraMove;
-
-    //protected override void Awake()
-    //{
-    //    base.Awake();
-
-    //    cameraMove = GetComponent<CameraMove>();
-    //}
-
-    //public override void Warp()
-    //{
-    //    base.Warp();
-    //    cameraMove.ResetTargetRotation();
-    //}
+    public override void Warp()
+    {
+        base.Warp();
+        cameraMove.ResetTargetRotation();
+    }
 
     CharacterController characterController;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        cameraMove = GetComponent<CameraMove>();
+        cameraMove.moveSpeed = walkSpeed;
+        cameraMove.cameraSpeed = lookSpeed;
     }
 
     void Update()
@@ -117,6 +116,7 @@ public class FPSController : PortalableObject
             anim.SetBool("Walk_Anim", false);
         }
 
+        // Walk backward
         if (Input.GetKeyDown(KeyCode.S))
         {
             if (!anim.GetBool("Walk_Backward_Anim"))

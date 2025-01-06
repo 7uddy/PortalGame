@@ -6,6 +6,9 @@ using UnityEngine;
 public class PortalPlacement : MonoBehaviour
 {
     [SerializeField]
+    private Camera playerCamera;
+    
+    [SerializeField]
     private PortalPair portals;
 
     [SerializeField]
@@ -25,11 +28,11 @@ public class PortalPlacement : MonoBehaviour
     {
         if(Input.GetButtonDown("Fire1"))
         {
-            FirePortal(0, transform.position, transform.forward, 250.0f);
+            FirePortal(0, playerCamera.transform.position, playerCamera.transform.forward, 250.0f);
         }
         else if (Input.GetButtonDown("Fire2"))
         {
-            FirePortal(1, transform.position, transform.forward, 250.0f);
+            FirePortal(1, playerCamera.transform.position, playerCamera.transform.forward, 250.0f);
         }
     }
 

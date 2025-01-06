@@ -5,8 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class CameraMove : MonoBehaviour
 {
-    private const float moveSpeed = 7.5f;
-    private const float cameraSpeed = 3.0f;
+    [SerializeField]
+    private Camera playerCamera;
+    
+    public float moveSpeed = 3.0f;
+    public float cameraSpeed = 2.5f;
 
     public Quaternion TargetRotation { private set; get; }
     
@@ -16,7 +19,7 @@ public class CameraMove : MonoBehaviour
     private new Rigidbody rigidbody;
 
     private void Awake()
-    {
+    { 
         rigidbody = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -25,36 +28,18 @@ public class CameraMove : MonoBehaviour
 
     private void Update()
     {
-        // Rotate the camera.
-        var rotation = new Vector2(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"));
-        var targetEuler = TargetRotation.eulerAngles + (Vector3)rotation * cameraSpeed;
-        if(targetEuler.x > 180.0f)
-        {
-            targetEuler.x -= 360.0f;
-        }
-        targetEuler.x = Mathf.Clamp(targetEuler.x, -75.0f, 75.0f);
-        TargetRotation = Quaternion.Euler(targetEuler);
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, TargetRotation, 
-            Time.deltaTime * 15.0f);
-
-        // Move the camera.
-        //float x = Input.GetAxis("Horizontal");
-        //float z = Input.GetAxis("Vertical");
-        //moveVector = new Vector3(x, 0.0f, z) * moveSpeed;
-
-        //moveY = Input.GetAxis("Elevation");
+        TargetRotation = playerCamera.transform.rotation;
     }
 
     private void FixedUpdate()
     {
-        Vector3 newVelocity = transform.TransformDirection(moveVector);
-        newVelocity.y += moveY * moveSpeed;
+        Vector3 newVelocity = playerCamera.transform.TransformDirection(moveVector);
+        newVelocity.y += playerCamera.transform.position.y * moveSpeed;
         rigidbody.linearVelocity = newVelocity;
     }
 
     public void ResetTargetRotation()
     {
-        TargetRotation = Quaternion.LookRotation(transform.forward, Vector3.up);
+        TargetRotation = Quaternion.LookRotation(playerCamera.transform.forward, Vector3.up);
     }
 }
