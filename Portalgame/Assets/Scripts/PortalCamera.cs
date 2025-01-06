@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PortalCamera : MonoBehaviour
+public class PortalCameraOld : MonoBehaviour
 {
     [SerializeField] public Transform playerCamera;
     [SerializeField] public Transform portal;

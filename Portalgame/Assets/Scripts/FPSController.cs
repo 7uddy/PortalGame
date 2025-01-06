@@ -1,9 +1,10 @@
+using NUnit.Framework.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class FPSController : MonoBehaviour
+public class FPSController : PortalableObject
 {
     public Camera playerCamera;
     public float walkSpeed = 6f;
@@ -11,6 +12,9 @@ public class FPSController : MonoBehaviour
     public float jumpPower = 7f;
     public float gravity = 10f;
 
+    Vector3 rot = Vector3.zero;
+    //float rotSpeed = 40f;
+    Animator anim;
 
     public float lookSpeed = 2f;
     public float lookXLimit = 45f;
@@ -21,6 +25,26 @@ public class FPSController : MonoBehaviour
 
     public bool canMove = true;
 
+    void Awake()
+    {
+        anim = gameObject.GetComponent<Animator>();
+        //gameObject.transform.eulerAngles = rot;
+    }
+
+    //private CameraMove cameraMove;
+
+    //protected override void Awake()
+    //{
+    //    base.Awake();
+
+    //    cameraMove = GetComponent<CameraMove>();
+    //}
+
+    //public override void Warp()
+    //{
+    //    base.Warp();
+    //    cameraMove.ResetTargetRotation();
+    //}
 
     CharacterController characterController;
     void Start()
@@ -37,12 +61,15 @@ public class FPSController : MonoBehaviour
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
+        CheckKey();
+
         // Press Left Shift to run
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
         float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
         float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
         float movementDirectionY = moveDirection.y;
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+
 
         #endregion
 
@@ -75,5 +102,29 @@ public class FPSController : MonoBehaviour
         }
 
         #endregion
+    }
+
+    void CheckKey()
+    {
+        // Walk forward
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            if(!anim.GetBool("Walk_Anim"))
+                anim.SetBool("Walk_Anim", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.W))
+        {
+            anim.SetBool("Walk_Anim", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (!anim.GetBool("Walk_Backward_Anim"))
+                anim.SetBool("Walk_Backward_Anim", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+            anim.SetBool("Walk_Backward_Anim", false);
+        }
     }
 }
