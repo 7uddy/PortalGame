@@ -1,4 +1,0 @@
-repository "Portalgame/Portalgame@7971725247239@cloud"
-  path "/"
-    br "/main"
-    co "/main"
