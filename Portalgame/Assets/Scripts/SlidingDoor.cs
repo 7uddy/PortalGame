@@ -60,6 +60,7 @@ public class SlidingDoor : MonoBehaviour
 
     private IEnumerator MoveDoor(Vector3 from, Vector3 to)
     {
+        SoundManager.Instance.PlaySound2D("DoorSoundEffect");
         float time = 0;
         isMoving = true;
         while (time < 1)

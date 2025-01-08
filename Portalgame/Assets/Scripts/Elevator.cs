@@ -60,6 +60,7 @@ public class Elevator : MonoBehaviour
 
     private IEnumerator MoveToFloor(Vector3 targetPosition)
     {
+        SoundManager.Instance.PlaySound2D("ElevatorSoundEffect");
         isMoving = true;
 
         while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
@@ -71,6 +72,8 @@ public class Elevator : MonoBehaviour
         transform.position = targetPosition;
         isAtFloor1 = targetPosition == Floor1Position;
         isMoving = false;
+        SoundManager.Instance.StopSound();
+
         StartCoroutine(doorScript.OpenDoor());
     }
 }

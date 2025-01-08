@@ -2895,6 +2895,12 @@ MonoBehaviour:
   - groupID: UIClick
     clips:
     - {fileID: 8300000, guid: b46d5dcc55e60024aa101888aa05b9d6, type: 3}
+  - groupID: DoorSoundEffect
+    clips:
+    - {fileID: 8300000, guid: d9345d63540d5ef4cb5b4dc51d038e6e, type: 3}
+  - groupID: ElevatorSoundEffect
+    clips:
+    - {fileID: 8300000, guid: ec412a313ed2e0940b92cccd0357ec38, type: 3}
 --- !u!4 &1223995853
 Transform:
   m_ObjectHideFlags: 0
