@@ -3,11 +3,21 @@ using UnityEngine;
 
 public class UIHintController : MonoBehaviour
 {
+    public static UIHintController Instance;
     [SerializeField]
     public TextMeshProUGUI TipText;
     [SerializeField]
     public CanvasGroup TipAlphaCanvas;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
 
+        Instance = this;
+    }
     private void OnEnable()
     {
         TipAlphaCanvas.alpha = 0;

@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public bool IsLoading = false;
+
     [SerializeField]
     public GameObject m_LoadingScreen;
     [SerializeField]
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void UpdateForNewLoadingScene()
     {
+        IsLoading = true;
         MusicManager.Instance.PlayMusic("LoadingScreen");
 
         _currentTipIndex = Random.Range(0, TipsLoader.Instance.Tips.Count);
@@ -100,6 +103,7 @@ public class GameManager : MonoBehaviour
 
 
         m_LoadingScreen.SetActive(false);
+        IsLoading = false;
     }
 
     /// <summary>

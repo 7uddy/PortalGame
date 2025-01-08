@@ -31,7 +31,7 @@ public class PauseMenuController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (!GameManager.Instance.IsLoading && Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
             {
@@ -41,6 +41,11 @@ public class PauseMenuController : MonoBehaviour
             {
                 Pause();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameManager.Instance.SwitchToScene(SceneIndexes.GAME);
         }
     }
 
