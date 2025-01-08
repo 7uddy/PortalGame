@@ -25,6 +25,7 @@ public class ButtonSecondChamber : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            UIHintController.Instance.ShowHint("Press E to use the button.");
             IsNearby = true;
         }
     }
@@ -33,6 +34,7 @@ public class ButtonSecondChamber : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            UIHintController.Instance.HideTip();
             IsNearby = false;
         }
     }

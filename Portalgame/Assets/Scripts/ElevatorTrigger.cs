@@ -12,7 +12,7 @@ public class ElevatorTrigger : MonoBehaviour
         {
             elevatorScript.IsPlayerNearby = true;
             player.transform.SetParent(transform);
-            UIHintController.Instance.ShowHint("Press f to use elevator");
+            UIHintController.Instance.ShowHint("Press F to use the elevator.");
         }
     }
 
