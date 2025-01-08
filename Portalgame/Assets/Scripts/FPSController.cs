@@ -30,11 +30,18 @@ public class FPSController : PortalableObject
         base.Awake();
         cameraMove = GetComponent<CameraMove>();
         anim = gameObject.GetComponent<Animator>();
+
+        base.IsPlayer = true;
     }
 
-    public override void Warp(Quaternion PlayerCamera = default)
+    public override void Warp()
     {
-        base.Warp(playerCamera.transform.rotation);
+        base.Warp();
+
+        Quaternion relativeRot = Quaternion.Inverse(inPortal.transform.rotation) * playerCamera.transform.rotation;
+        relativeRot = halfTurn * relativeRot;
+        playerCamera.transform.rotation = outPortal.transform.rotation * relativeRot;
+
         cameraMove.ResetTargetRotation();
     }
 

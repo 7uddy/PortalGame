@@ -41,17 +41,6 @@ public class CameraMove : MonoBehaviour
         //playerCamera.transform.rotation = Quaternion.Slerp(playerCamera.transform.rotation, TargetRotation, Time.deltaTime * 1.0f);
     }
 
-    //private void FixedUpdate()
-    //{
-    //    Vector3 newVelocity = playerCamera.transform.TransformDirection(moveVector);
-    //    newVelocity.y += playerCamera.transform.position.y * moveSpeed;
-    //    //rigidbody.linearVelocity = newVelocity;
-
-    //    //Vector3 newVelocity = transform.TransformDirection(moveVector);
-    //    //newVelocity.y += transform.position.y * moveSpeed;
-    //    //rigidbody.linearVelocity = newVelocity;
-    //}
-
     public void ResetTargetRotation()
     {
         TargetRotation = Quaternion.LookRotation(playerCamera.transform.forward, Vector3.up);
