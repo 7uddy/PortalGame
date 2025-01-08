@@ -28,10 +28,12 @@ public class PortalPlacement : MonoBehaviour
     {
         if(Input.GetButtonDown("Fire1"))
         {
+            SoundManager.Instance.PlaySound2D("PortalLaunchSoundEffect");
             FirePortal(0, playerCamera.transform.position, playerCamera.transform.forward, 250.0f);
         }
         else if (Input.GetButtonDown("Fire2"))
         {
+            SoundManager.Instance.PlaySound2D("PortalLaunchSoundEffect");
             FirePortal(1, playerCamera.transform.position, playerCamera.transform.forward, 250.0f);
         }
     }

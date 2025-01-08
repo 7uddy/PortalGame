@@ -2904,6 +2904,9 @@ MonoBehaviour:
   - groupID: PlayerMovementSoundEffect
     clips:
     - {fileID: 8300000, guid: c131eb2f69264a548a2237a94f6c0ea2, type: 3}
+  - groupID: PortalLaunchSoundEffect
+    clips:
+    - {fileID: 8300000, guid: e4adde288bb0f1f41b41a48b33a078d1, type: 3}
 --- !u!4 &1223995853
 Transform:
   m_ObjectHideFlags: 0
