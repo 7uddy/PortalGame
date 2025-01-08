@@ -12,13 +12,16 @@ public class PortalableObject : MonoBehaviour
 
     private int inPortalCount = 0;
     
-    private Portal inPortal;
-    private Portal outPortal;
+    protected Portal inPortal;
+    protected Portal outPortal;
 
     private new Rigidbody rigidbody;
+
+    protected bool IsPlayer = false;
+
     protected new Collider collider;
 
-    private static readonly Quaternion halfTurn = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+    protected static readonly Quaternion halfTurn = Quaternion.Euler(0.0f, 180.0f, 0.0f);
 
     protected virtual void Awake()
     {
@@ -86,7 +89,7 @@ public class PortalableObject : MonoBehaviour
         }
     }
 
-    public virtual void Warp(Quaternion playerCamera = default)
+    public virtual void Warp()
     {
         var inTransform = inPortal.transform;
         var outTransform = outPortal.transform;
@@ -97,18 +100,23 @@ public class PortalableObject : MonoBehaviour
         transform.position = outTransform.TransformPoint(relativePos);
 
 
-        // Update rotation of object.
-        if (playerCamera != default)
-        {
-            Quaternion relativeRot = Quaternion.Inverse(inTransform.rotation) * playerCamera;
+        if (!IsPlayer)
+        {// Update rotation of object.
+            Quaternion relativeRot = Quaternion.Inverse(inTransform.rotation) * transform.rotation;
             relativeRot = halfTurn * relativeRot;
-            playerCamera = outTransform.rotation * relativeRot;
+            transform.rotation = outTransform.rotation * relativeRot;
         }
         else
         {
             Quaternion relativeRot = Quaternion.Inverse(inTransform.rotation) * transform.rotation;
-        relativeRot = halfTurn * relativeRot;
-        transform.rotation = outTransform.rotation * relativeRot;
+            relativeRot = halfTurn * relativeRot;
+            Quaternion outRotationY = Quaternion.Euler(0, outTransform.rotation.eulerAngles.y, 0);
+
+            // Extract the Y-axis rotation from the relative rotation
+            Quaternion relativeRotationY = Quaternion.Euler(0, relativeRot.eulerAngles.y, 0);
+
+            // Combine the output Y-axis rotation with the relative Y-axis rotation
+            transform.rotation = outRotationY * relativeRotationY;
         }
 
         // Update velocity of rigidbody.

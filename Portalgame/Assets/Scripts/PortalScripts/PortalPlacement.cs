@@ -26,8 +26,6 @@ public class PortalPlacement : MonoBehaviour
 
     private void Update()
     {
-        if (PauseMenuController.GameIsPaused)
-            return;
         if(Input.GetButtonDown("Fire1"))
         {
             FirePortal(0, playerCamera.transform.position, playerCamera.transform.forward, 250.0f);
@@ -48,6 +46,7 @@ public class PortalPlacement : MonoBehaviour
             // If we shoot a portal, recursively fire through the portal.
             if (hit.collider.tag == "Portal")
             {
+                return;
                 var inPortal = hit.collider.GetComponent<Portal>();
 
                 if(inPortal == null)
@@ -75,7 +74,7 @@ public class PortalPlacement : MonoBehaviour
             }
 
             // Orient the portal according to camera look direction and surface direction.
-            var cameraRotation = cameraMove.TargetRotation;
+            var cameraRotation = playerCamera.transform.rotation ;
             var portalRight = cameraRotation * Vector3.right;
             
             if(Mathf.Abs(portalRight.x) >= Mathf.Abs(portalRight.z))

@@ -28,9 +28,17 @@ public class CameraMove : MonoBehaviour
 
     private void Update()
     {
-        TargetRotation = Quaternion.Euler(playerCamera.transform.eulerAngles);
+        //var rotation = new Vector2(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"));
+        var targetEuler = TargetRotation.eulerAngles + (Vector3)playerCamera.transform.eulerAngles * cameraSpeed;
+        if (targetEuler.x > 180.0f)
+        {
+            targetEuler.x -= 360.0f;
+        }
+        targetEuler.x = Mathf.Clamp(targetEuler.x, -75.0f, 75.0f);
+        
+        TargetRotation = Quaternion.Euler(targetEuler);
 
-        //playerCamera.transform.rotation = Quaternion.Slerp(transform.rotation, TargetRotation, Time.deltaTime * 15.0f);
+        //playerCamera.transform.rotation = Quaternion.Slerp(playerCamera.transform.rotation, TargetRotation, Time.deltaTime * 1.0f);
     }
 
     //private void FixedUpdate()

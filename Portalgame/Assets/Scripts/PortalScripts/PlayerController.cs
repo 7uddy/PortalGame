@@ -12,7 +12,7 @@ public class PlayerController : PortalableObject
         cameraMove = GetComponent<CameraMove>();
     }
 
-    public override void Warp(Quaternion playerCamera = default)
+    public override void Warp()
     {
         base.Warp();
         cameraMove.ResetTargetRotation();
