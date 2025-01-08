@@ -61,6 +61,7 @@ public class FPSController : PortalableObject
         HandleMovement();
     }
 
+    private bool IsMoving = false;
     void HandleMovement()
     {
         // Check if grounded using a raycast
@@ -78,6 +79,17 @@ public class FPSController : PortalableObject
         Vector3 forward = transform.forward * inputZ;
         Vector3 right = transform.right * inputX;
         moveDirection = (forward + right).normalized * speed;
+
+        if (moveDirection.magnitude > 0 && !IsMoving && !gameObject.transform.parent)
+        {
+            SoundManager.Instance.PlaySound2D("PlayerMovementSoundEffect");
+            IsMoving = true;
+        }
+        else if(moveDirection.magnitude == 0 && IsMoving)
+        {
+            SoundManager.Instance.StopSound();
+            IsMoving = false;
+        }
 
         // Preserve Y velocity (gravity or jumping)
         float yVelocity = rb.linearVelocity.y;
