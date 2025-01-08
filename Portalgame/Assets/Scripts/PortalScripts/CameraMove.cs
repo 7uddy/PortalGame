@@ -23,14 +23,14 @@ public class CameraMove : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
 
-        //TargetRotation = transform.rotation;
+        TargetRotation = transform.rotation;
     }
 
     private void Update()
     {
         TargetRotation = Quaternion.Euler(playerCamera.transform.eulerAngles);
 
-        playerCamera.transform.rotation = Quaternion.Slerp(transform.rotation, TargetRotation, Time.deltaTime * 15.0f);
+        //playerCamera.transform.rotation = Quaternion.Slerp(transform.rotation, TargetRotation, Time.deltaTime * 15.0f);
     }
 
     //private void FixedUpdate()
