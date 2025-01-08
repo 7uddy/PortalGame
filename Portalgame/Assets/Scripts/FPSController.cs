@@ -87,7 +87,7 @@ public class FPSController : PortalableObject
         Vector3 right = transform.right * inputX;
         moveDirection = (forward + right).normalized * speed;
 
-        if (moveDirection.magnitude > 0 && !IsMoving && !gameObject.transform.parent)
+        if (moveDirection.magnitude > 0 && !IsMoving && !gameObject.transform.parent && !GameManager.Instance.IsLoading)
         {
             SoundManager.Instance.PlaySound2D("PlayerMovementSoundEffect");
             IsMoving = true;

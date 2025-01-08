@@ -31,7 +31,10 @@ public class PauseMenuController : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (!GameManager.Instance.IsLoading && Input.GetKeyDown(KeyCode.Escape))
+        if (GameManager.Instance.IsLoading)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
             {
