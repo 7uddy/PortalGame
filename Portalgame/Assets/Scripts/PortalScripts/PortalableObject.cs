@@ -98,7 +98,7 @@ public class PortalableObject : MonoBehaviour
 
 
         // Update rotation of object.
-        if(playerCamera != default)
+        if (playerCamera != default)
         {
             Quaternion relativeRot = Quaternion.Inverse(inTransform.rotation) * playerCamera;
             relativeRot = halfTurn * relativeRot;
@@ -107,8 +107,8 @@ public class PortalableObject : MonoBehaviour
         else
         {
             Quaternion relativeRot = Quaternion.Inverse(inTransform.rotation) * transform.rotation;
-            relativeRot = halfTurn * relativeRot;
-            transform.rotation = outTransform.rotation * relativeRot;
+        relativeRot = halfTurn * relativeRot;
+        transform.rotation = outTransform.rotation * relativeRot;
         }
 
         // Update velocity of rigidbody.

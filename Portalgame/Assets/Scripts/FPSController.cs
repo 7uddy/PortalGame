@@ -55,7 +55,7 @@ public class FPSController : PortalableObject
         HandleRotation();
         CheckKey();
     }
-
+    
     void FixedUpdate()
     {
         HandleMovement();

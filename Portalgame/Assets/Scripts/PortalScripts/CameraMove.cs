@@ -23,28 +23,29 @@ public class CameraMove : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
 
-        TargetRotation = transform.rotation;
+        //TargetRotation = transform.rotation;
     }
 
     private void Update()
     {
-        TargetRotation = playerCamera.transform.rotation;
-        moveVector = new Vector3(transform.position.x, 0.0f, transform.position.z) * moveSpeed;
+        TargetRotation = Quaternion.Euler(playerCamera.transform.eulerAngles);
+
+        playerCamera.transform.rotation = Quaternion.Slerp(transform.rotation, TargetRotation, Time.deltaTime * 15.0f);
     }
 
-    private void FixedUpdate()
-    {
-        Vector3 newVelocity = playerCamera.transform.TransformDirection(moveVector);
-        newVelocity.y += playerCamera.transform.position.y * moveSpeed;
-        //rigidbody.linearVelocity = newVelocity;
+    //private void FixedUpdate()
+    //{
+    //    Vector3 newVelocity = playerCamera.transform.TransformDirection(moveVector);
+    //    newVelocity.y += playerCamera.transform.position.y * moveSpeed;
+    //    //rigidbody.linearVelocity = newVelocity;
 
-        //Vector3 newVelocity = transform.TransformDirection(moveVector);
-        //newVelocity.y += transform.position.y * moveSpeed;
-        //rigidbody.linearVelocity = newVelocity;
-    }
+    //    //Vector3 newVelocity = transform.TransformDirection(moveVector);
+    //    //newVelocity.y += transform.position.y * moveSpeed;
+    //    //rigidbody.linearVelocity = newVelocity;
+    //}
 
     public void ResetTargetRotation()
     {
-        TargetRotation = Quaternion.LookRotation(transform.forward, Vector3.up);
+        TargetRotation = Quaternion.LookRotation(playerCamera.transform.forward, Vector3.up);
     }
 }
