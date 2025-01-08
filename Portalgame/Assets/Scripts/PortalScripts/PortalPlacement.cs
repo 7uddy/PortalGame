@@ -26,6 +26,8 @@ public class PortalPlacement : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenuController.GameIsPaused)
+            return;
         if(Input.GetButtonDown("Fire1"))
         {
             FirePortal(0, playerCamera.transform.position, playerCamera.transform.forward, 250.0f);

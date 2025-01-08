@@ -108,7 +108,7 @@ public class FPSController : PortalableObject
 
     void HandleRotation()
     {
-        if (canMove)
+        if (canMove && !PauseMenuController.GameIsPaused)
         {
             // Handle camera rotation (Mouse Y)
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
