@@ -14,7 +14,7 @@ public class CameraMove : MonoBehaviour
     public Quaternion TargetRotation { private set; get; }
     
     private Vector3 moveVector = Vector3.zero;
-    private float moveY = 0.0f;
+   
 
     private new Rigidbody rigidbody;
 
@@ -29,17 +29,22 @@ public class CameraMove : MonoBehaviour
     private void Update()
     {
         TargetRotation = playerCamera.transform.rotation;
+        moveVector = new Vector3(transform.position.x, 0.0f, transform.position.z) * moveSpeed;
     }
 
     private void FixedUpdate()
     {
         Vector3 newVelocity = playerCamera.transform.TransformDirection(moveVector);
         newVelocity.y += playerCamera.transform.position.y * moveSpeed;
-        rigidbody.linearVelocity = newVelocity;
+        //rigidbody.linearVelocity = newVelocity;
+
+        //Vector3 newVelocity = transform.TransformDirection(moveVector);
+        //newVelocity.y += transform.position.y * moveSpeed;
+        //rigidbody.linearVelocity = newVelocity;
     }
 
     public void ResetTargetRotation()
     {
-        TargetRotation = Quaternion.LookRotation(playerCamera.transform.forward, Vector3.up);
+        TargetRotation = Quaternion.LookRotation(transform.forward, Vector3.up);
     }
 }

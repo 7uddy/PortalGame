@@ -201,10 +201,13 @@ public class Portal : MonoBehaviour
         // Ensure the portal corners overlap a surface.
         bool isOverlapping = true;
 
-        //for(int i = 1; i < checkPositions.Length - 1; ++i)
+        //for (int i = 1; i < checkPositions.Length - 1; ++i)
         //{
-        //    isOverlapping &= Physics.Linecast(checkPositions[i], 
-        //        checkPositions[i] + checkPositions[checkPositions.Length - 1], placementMask);
+        //    if (Physics.Linecast(checkPositions[i], checkPositions[checkPositions.Length - 1], placementMask))
+        //    {
+        //        isOverlapping = false;
+        //        break; 
+        //    }
         //}
 
         return isOverlapping;

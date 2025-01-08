@@ -9,11 +9,10 @@ public class PlayerController : PortalableObject
     protected override void Awake()
     {
         base.Awake();
-
         cameraMove = GetComponent<CameraMove>();
     }
 
-    public override void Warp()
+    public override void Warp(Quaternion playerCamera = default)
     {
         base.Warp();
         cameraMove.ResetTargetRotation();

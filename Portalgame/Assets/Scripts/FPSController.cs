@@ -1,9 +1,8 @@
-using NUnit.Framework.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Rigidbody))]
 public class FPSController : PortalableObject
 {
     public Camera playerCamera;
@@ -11,40 +10,38 @@ public class FPSController : PortalableObject
     public float runSpeed = 12f;
     public float jumpPower = 7f;
     public float gravity = 10f;
-
-    //Vector3 rot = Vector3.zero;
-    //float rotSpeed = 40f;
-    Animator anim;
+    public LayerMask groundLayer;
 
     public float lookSpeed = 2f;
     public float lookXLimit = 45f;
 
-
-    Vector3 moveDirection = Vector3.zero;
-    float rotationX = 0;
-
+    private Rigidbody rb;
+    private Animator anim;
+    private bool isGrounded;
+    private bool jumpCooldown; // Prevents jump spamming
+    private Vector3 moveDirection = Vector3.zero;
+    private float rotationX = 0;
     public bool canMove = true;
 
     private CameraMove cameraMove;
+
     protected override void Awake()
     {
         base.Awake();
         cameraMove = GetComponent<CameraMove>();
         anim = gameObject.GetComponent<Animator>();
-        //gameObject.transform.eulerAngles = rot;
     }
 
-    public override void Warp()
+    public override void Warp(Quaternion PlayerCamera = default)
     {
-        base.Warp();
+        base.Warp(playerCamera.transform.rotation);
         cameraMove.ResetTargetRotation();
     }
 
-    CharacterController characterController;
-
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true; // Prevent physics-based rotation
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -55,52 +52,72 @@ public class FPSController : PortalableObject
 
     void Update()
     {
-
-        #region Handles Movment
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 right = transform.TransformDirection(Vector3.right);
-
+        HandleRotation();
         CheckKey();
+    }
 
-        // Press Left Shift to run
+    void FixedUpdate()
+    {
+        HandleMovement();
+    }
+
+    void HandleMovement()
+    {
+        // Check if grounded using a raycast
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, groundLayer);
+
+        // Get input directions
+        float inputX = Input.GetAxis("Horizontal");
+        float inputZ = Input.GetAxis("Vertical");
+
+        // Determine speed
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
-        float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
-        float movementDirectionY = moveDirection.y;
-        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+        float speed = isRunning ? runSpeed : walkSpeed;
 
+        // Calculate movement direction
+        Vector3 forward = transform.forward * inputZ;
+        Vector3 right = transform.right * inputX;
+        moveDirection = (forward + right).normalized * speed;
 
-        #endregion
+        // Preserve Y velocity (gravity or jumping)
+        float yVelocity = rb.linearVelocity.y;
 
-        #region Handles Jumping
-        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
+        if (!isGrounded)
         {
-            moveDirection.y = jumpPower;
-        }
-        else
-        {
-            moveDirection.y = movementDirectionY;
+            // Apply gravity when not grounded
+            yVelocity -= gravity * Time.fixedDeltaTime;
         }
 
-        if (!characterController.isGrounded)
+        // Jump logic
+        if (Input.GetButtonDown("Jump") && canMove && isGrounded && !jumpCooldown)
         {
-            moveDirection.y -= gravity * Time.deltaTime;
+            yVelocity = jumpPower;
+            StartCoroutine(ResetJumpCooldown());
         }
 
-        #endregion
+        // Apply movement with preserved Y velocity
+        rb.linearVelocity = new Vector3(moveDirection.x, yVelocity, moveDirection.z);
+    }
 
-        #region Handles Rotation
-        characterController.Move(moveDirection * Time.deltaTime);
+    IEnumerator ResetJumpCooldown()
+    {
+        jumpCooldown = true;
+        yield return new WaitForSeconds(0.2f); // Prevents jump spamming
+        jumpCooldown = false;
+    }
 
+    void HandleRotation()
+    {
         if (canMove)
         {
+            // Handle camera rotation (Mouse Y)
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+
+            // Handle character rotation (Mouse X)
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
-
-        #endregion
     }
 
     void CheckKey()
@@ -108,7 +125,7 @@ public class FPSController : PortalableObject
         // Walk forward
         if (Input.GetKeyDown(KeyCode.W))
         {
-            if(!anim.GetBool("Walk_Anim"))
+            if (!anim.GetBool("Walk_Anim"))
                 anim.SetBool("Walk_Anim", true);
         }
         else if (Input.GetKeyUp(KeyCode.W))

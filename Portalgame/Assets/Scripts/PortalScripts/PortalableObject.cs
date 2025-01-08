@@ -70,7 +70,7 @@ public class PortalableObject : MonoBehaviour
 
         Physics.IgnoreCollision(collider, wallCollider);
 
-        cloneObject.SetActive(false);
+        cloneObject.SetActive(true);
 
         ++inPortalCount;
     }
@@ -86,7 +86,7 @@ public class PortalableObject : MonoBehaviour
         }
     }
 
-    public virtual void Warp()
+    public virtual void Warp(Quaternion playerCamera = default)
     {
         var inTransform = inPortal.transform;
         var outTransform = outPortal.transform;
@@ -96,10 +96,20 @@ public class PortalableObject : MonoBehaviour
         relativePos = halfTurn * relativePos;
         transform.position = outTransform.TransformPoint(relativePos);
 
+
         // Update rotation of object.
-        Quaternion relativeRot = Quaternion.Inverse(inTransform.rotation) * transform.rotation;
-        relativeRot = halfTurn * relativeRot;
-        transform.rotation = outTransform.rotation * relativeRot;
+        if(playerCamera != default)
+        {
+            Quaternion relativeRot = Quaternion.Inverse(inTransform.rotation) * playerCamera;
+            relativeRot = halfTurn * relativeRot;
+            playerCamera = outTransform.rotation * relativeRot;
+        }
+        else
+        {
+            Quaternion relativeRot = Quaternion.Inverse(inTransform.rotation) * transform.rotation;
+            relativeRot = halfTurn * relativeRot;
+            transform.rotation = outTransform.rotation * relativeRot;
+        }
 
         // Update velocity of rigidbody.
         Vector3 relativeVel = inTransform.InverseTransformDirection(rigidbody.linearVelocity);
