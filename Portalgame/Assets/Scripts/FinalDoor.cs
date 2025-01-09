@@ -8,7 +8,7 @@ public class FinalDoor : MonoBehaviour
     {
         if (IsPlayerNearby && Input.GetKeyDown(KeyCode.E))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            GameManager.Instance.SwitchToScene(SceneIndexes.TITLE_SCREEN);
         }
     }
 
